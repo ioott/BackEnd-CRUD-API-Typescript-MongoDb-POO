@@ -15,12 +15,12 @@ export default class CarODM {
       model: { type: String, required: true },
       year: { type: Number, required: true },
       color: { type: String, required: true },
-      status: { type: Boolean, required: true },
+      status: { type: Boolean },
       buyValue: { type: Number, required: true },
       doorsQty: { type: Number, required: true },
       seatsQty: { type: Number, required: true },
-      id: { type: String },
     });
+
     this.model = models.Car || model('Car', this.schema);
   }
 

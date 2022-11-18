@@ -1,31 +1,24 @@
+import ICar from '../Interfaces/ICar';
+
 export default class Car {
   private id: string | undefined;
   private model: string;
   private year: number;
   private color: string;
-  private status: boolean;
+  private status: boolean | undefined = false;
   private buyValue: number;
   private doorsQty: number;
   private seatsQty: number;
 
-  constructor(
-    model: string,
-    year: number,
-    color: string,
-    status: boolean,
-    buyValue: number,
-    doorsQty: number,
-    seatsQty: number,
-    id?: string | undefined,
-  ) {
-    this.model = model;
-    this.year = year;
-    this.color = color;
-    this.status = status;
-    this.buyValue = buyValue;
-    this.doorsQty = doorsQty;
-    this.seatsQty = seatsQty;
-    this.id = id;
+  constructor(car: ICar) {
+    this.id = car._id;
+    this.model = car.model;
+    this.year = car.year;
+    this.color = car.color;
+    this.status = car.status;
+    this.buyValue = car.buyValue;
+    this.doorsQty = car.doorsQty;
+    this.seatsQty = car.seatsQty;
   }
 
   public getId(): string | undefined {
@@ -52,10 +45,10 @@ export default class Car {
   public setColor(value: string) {
     this.color = value;
   }
-  public getStatus(): boolean {
+  public getStatus(): boolean | undefined {
     return this.status;
   }
-  public setStatus(value: boolean) {
+  public setStatus(value: boolean | undefined) {
     this.status = value;
   }
   public getBuyValue(): number {

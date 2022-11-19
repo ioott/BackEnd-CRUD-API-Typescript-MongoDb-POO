@@ -1,6 +1,7 @@
 import ICar from '../Interfaces/ICar';
+import IValid from '../Interfaces/IValid';
 
-export default class Car {
+export default class Car implements IValid {
   protected id: string | undefined;
   protected model: string;
   protected year: number;
@@ -11,6 +12,7 @@ export default class Car {
   private seatsQty: number;
 
   constructor(car: ICar) {
+    if (car._id && !this.isValid(car._id)) throw new Error('Invalid mongo id');
     this.id = car._id;
     this.model = car.model;
     this.year = car.year;
@@ -21,40 +23,8 @@ export default class Car {
     this.seatsQty = car.seatsQty;
   }
 
-  public getId(): string | undefined {
-    return this.id;
-  }
-  public setId(value: string | undefined) {
-    this.id = value;
-  }
-  public getModel(): string {
-    return this.model;
-  }
-  public setModel(value: string) {
-    this.model = value;
-  }
-  public getYear(): number {
-    return this.year;
-  }
-  public setYear(value: number) {
-    this.year = value;
-  }
-  public getColor(): string {
-    return this.color;
-  }
-  public setColor(value: string) {
-    this.color = value;
-  }
-  public getStatus(): boolean | undefined {
-    return this.status;
-  }
-  public setStatus(value: boolean | undefined) {
-    this.status = value;
-  }
-  public getBuyValue(): number {
-    return this.buyValue;
-  }
-  public setBuyValue(value: number) {
-    this.buyValue = value;
+  isValid(value: string): boolean {
+    const regex = /^[a-f\d]{24}$/i;
+    return regex.test(value);
   }
 }

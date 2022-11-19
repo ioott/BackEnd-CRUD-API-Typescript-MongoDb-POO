@@ -15,4 +15,22 @@ export default class CarService {
     const newCar = await carODM.create(car);
     return this.createCarDomain(newCar);
   }
+
+  public async findAll() {
+    const carODM = new CarODM();
+    const allCars = await carODM.findAll();
+    return allCars.map((car: ICar) => this.createCarDomain(car));
+  }
+
+  public async findById(id: string) {
+    const regex = /^[a-f\d]{24}$/i;
+    const isValid = regex.test(id);
+    if (!isValid) throw new Error('Invalid mongo id');
+
+    const carODM = new CarODM();
+    const carById = await carODM.findById(id);
+    if (!carById) throw new Error('Car not found');
+
+    return this.createCarDomain(carById);
+  }
 }

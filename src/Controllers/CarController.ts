@@ -59,3 +59,6 @@ export default class CarController {
     }
   }
 }
+
+// melhorar tratamento de erro
+// ver como resetar o banco

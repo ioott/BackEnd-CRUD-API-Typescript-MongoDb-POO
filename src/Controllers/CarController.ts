@@ -2,6 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import CarService from '../Services/CarService';
 import ICar from '../Interfaces/ICar';
 
+const CAR_NOT_FOUND = 'Car not found';
+const INVALID_MONGO_ID = 'Invalid mongo id';
+
 export default class CarController {
   private req: Request;
   private res: Response;
@@ -49,16 +52,40 @@ export default class CarController {
       const allCars = await this.service.findById(id);
       return this.res.status(200).json(allCars);
     } catch (error) {
-      if ((error as Error).message === 'Car not found') {
-        this.res.status(404).json({ message: 'Car not found' });
+      if ((error as Error).message === CAR_NOT_FOUND) {
+        this.res.status(404).json({ message: CAR_NOT_FOUND });
       }
-      if ((error as Error).message === 'Invalid mongo id') {
-        this.res.status(422).json({ message: 'Invalid mongo id' });
+      if ((error as Error).message === INVALID_MONGO_ID) {
+        this.res.status(422).json({ message: INVALID_MONGO_ID });
+      }
+      this.next();
+    }
+  }
+
+  public async updateById() {
+    try {
+      const { id } = this.req.params;
+      const car: ICar = {
+        model: this.req.body.model,
+        year: this.req.body.year,
+        color: this.req.body.color,
+        status: this.req.body.status,
+        buyValue: this.req.body.buyValue,
+        doorsQty: this.req.body.doorsQty,
+        seatsQty: this.req.body.seatsQty,
+      };
+      const updatedCar = await this.service.updateById(id, car);
+      return this.res.status(200).json(updatedCar);
+    } catch (error) {
+      if ((error as Error).message === CAR_NOT_FOUND) {
+        this.res.status(404).json({ message: CAR_NOT_FOUND });
+      }
+      if ((error as Error).message === INVALID_MONGO_ID) {
+        this.res.status(422).json({ message: INVALID_MONGO_ID });
       }
       this.next();
     }
   }
 }
 
-// melhorar tratamento de erro
-// ver como resetar o banco
+// erros de console.log no server

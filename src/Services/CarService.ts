@@ -33,4 +33,16 @@ export default class CarService {
 
     return this.createCarDomain(carById);
   }
+
+  public async updateById(id: string, car: ICar) {
+    const regex = /^[a-f\d]{24}$/i;
+    const isValid = regex.test(id);
+    if (!isValid) throw new Error('Invalid mongo id');
+
+    const carODM = new CarODM();
+    const carById = await carODM.updateById(id, car);
+    if (!carById) throw new Error('Car not found');
+
+    return this.createCarDomain(carById);
+  }
 }

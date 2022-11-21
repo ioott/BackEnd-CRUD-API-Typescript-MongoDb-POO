@@ -24,6 +24,8 @@ describe('Testa a rota cars', function () {
       const result = await service.create(carInput);
 
       expect(result).to.be.deep.equal(carOutput);
+
+      sinon.restore();
     });
   });
 
@@ -97,9 +99,32 @@ describe('Testa a rota cars', function () {
         expect((error as Error).message).to.be.equal('Car not found');
       }
     });
+
+    afterEach(function () {
+      sinon.restore();
+    });
   });
 
-  afterEach(function () {
-    sinon.restore();
+  describe('Testa s rots do tipo put', function () {
+    it('Deve atualizar o carro de um id específico com sucesso', async function () {
+      const carInput: ICar = {
+        model: 'Carro1',
+        year: 2002,
+        color: 'White',
+        status: true,
+        buyValue: 15.990,
+        doorsQty: 4,
+        seatsQty: 5,
+      };
+      const carOutput: Car = new Car({ ...carInput });
+      sinon.stub(Model, 'findByIdAndUpdate').resolves(carOutput);
+
+      const service = new CarService();
+      const result = await service.updateById('637a3c57ded98fff8aa8bd43', carInput);
+
+      expect(result).to.be.deep.equal(carOutput);
+
+      sinon.restore();
+    });
   });
 });

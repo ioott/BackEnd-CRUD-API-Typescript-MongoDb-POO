@@ -1,7 +1,7 @@
 import IValid from '../Interfaces/IValid';
 import IVehicle from '../Interfaces/IVehicle';
 import ICar from '../Interfaces/ICar';
-// import IMotorcycle from '../Interfaces/IMotorcycle';
+import IMotorcycle from '../Interfaces/IMotorcycle';
 import Car from './Car';
 import Motorcycle from './Motorcycle';
 
@@ -11,9 +11,9 @@ class VehicleFactory {
       return new Car(vehicle as ICar);
     }
 
-    // if (type === 'motorcycle') {
-    //   return new Motorcycle(vehicle as IMotorcycle);
-    // }
+    if (type === 'motorcycle') {
+      return new Motorcycle(vehicle as IMotorcycle);
+    }
 
     throw new Error('Invalid vehicle!');
   }

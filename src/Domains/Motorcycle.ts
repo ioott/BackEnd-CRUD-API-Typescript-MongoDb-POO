@@ -1,24 +1,16 @@
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import IValid from '../Interfaces/IValid';
+import Vehicle from './Vehicle';
 
-export default class Motorcycle implements IValid {
-  protected id: string | undefined;
-  protected model: string;
-  protected year: number;
-  protected color: string;
-  protected status: boolean | undefined = false;
-  protected buyValue: number;
+export default class Motorcycle extends Vehicle implements IValid {
   private category: string;
   private engineCapacity: number;
 
   constructor(motorcycle: IMotorcycle) {
+    super(motorcycle);
+
     if (motorcycle._id && !this.isValid(motorcycle._id)) throw new Error('Invalid mongo id');
-    this.id = motorcycle._id;
-    this.model = motorcycle.model;
-    this.year = motorcycle.year;
-    this.color = motorcycle.color;
-    this.status = motorcycle.status;
-    this.buyValue = motorcycle.buyValue;
+
     this.category = motorcycle.category;
     this.engineCapacity = motorcycle.engineCapacity;
   }

@@ -18,33 +18,33 @@ export default class MotorcycleService {
     return manufacturedVehicle;
   }
 
-  //   public async findAll() {
-  //     const carODM = new CarODM();
-  //     const allCars = await carODM.findAll();
-  //     return allCars.map((car: ICar) => this.createCarDomain(car));
-  //   }
+  public async findAll() {
+    const motorcycleODM = new MotorcycleODM();
+    const allMotorcycles = await motorcycleODM.findAll();
+    return allMotorcycles.map((motorcycle: IMotorcycle) => this.createMotorcycleDomain(motorcycle));
+  }
 
-  //   public async findById(id: string) {
-  //     const regex = /^[a-f\d]{24}$/i;
-  //     const isValid = regex.test(id);
-  //     if (!isValid) throw new Error('Invalid mongo id');
+  public async findById(id: string) {
+    const regex = /^[a-f\d]{24}$/i;
+    const isValid = regex.test(id);
+    if (!isValid) throw new Error('Invalid mongo id');
 
-  //     const carODM = new CarODM();
-  //     const carById = await carODM.findById(id);
-  //     if (!carById) throw new Error('Car not found');
+    const motorcycleODM = new MotorcycleODM();
+    const motorcycleById = await motorcycleODM.findById(id);
+    if (!motorcycleById) throw new Error('Motorcycle not found');
 
-  //     return this.createCarDomain(carById);
-  //   }
+    return this.createMotorcycleDomain(motorcycleById);
+  }
 
-  //   public async updateById(id: string, car: ICar) {
-  //     const regex = /^[a-f\d]{24}$/i;
-  //     const isValid = regex.test(id);
-  //     if (!isValid) throw new Error('Invalid mongo id');
+  public async updateById(id: string, motorcycle: IMotorcycle) {
+    const regex = /^[a-f\d]{24}$/i;
+    const isValid = regex.test(id);
+    if (!isValid) throw new Error('Invalid mongo id');
 
-  //     const carODM = new CarODM();
-  //     const carById = await carODM.updateById(id, car);
-  //     if (!carById) throw new Error('Car not found');
+    const motorcycleODM = new MotorcycleODM();
+    const motorcycleById = await motorcycleODM.updateById(id, motorcycle);
+    if (!motorcycleById) throw new Error('Motorcycle not found');
 
-//     return this.createCarDomain(carById);
-//   }
+    return this.createMotorcycleDomain(motorcycleById);
+  }
 }

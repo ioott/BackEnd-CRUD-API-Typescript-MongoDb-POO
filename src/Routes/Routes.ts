@@ -17,12 +17,24 @@ routes.get(
   (req, res, next) => new CarController(req, res, next).findById(),
 );
 routes.get(
+  '/motorcycles/:id',
+  (req, res, next) => new MotorcycleController(req, res, next).findById(),
+);
+routes.get(
   '/cars',
   (req, res, next) => new CarController(req, res, next).findAll(),
+);
+routes.get(
+  '/motorcycles',
+  (req, res, next) => new MotorcycleController(req, res, next).findAll(),
 );
 routes.put(
   '/cars/:id',
   (req, res, next) => new CarController(req, res, next).updateById(),
+);
+routes.put(
+  '/motorcycles/:id',
+  (req, res, next) => new MotorcycleController(req, res, next).updateById(),
 );
 
 export default routes;

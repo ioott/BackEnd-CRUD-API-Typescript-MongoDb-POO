@@ -6,10 +6,11 @@ import Car from './Car';
 import Motorcycle from './Motorcycle';
 
 class VehicleFactory {
-  public static create(vehicle: IVehicle, type: string): Car | Motorcycle & IValid {
+  public static create(vehicle: IVehicle, type: string): (Car | Motorcycle) & IValid {
     if (type === 'car') {
       return new Car(vehicle as ICar);
     }
+
     // if (type === 'motorcycle') {
     //   return new Motorcycle(vehicle as IMotorcycle);
     // }

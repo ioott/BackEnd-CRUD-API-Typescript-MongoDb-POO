@@ -14,8 +14,8 @@ export default class CarService {
   public async create(car: ICar) {
     const carODM = new CarODM();
     const newCar = await carODM.create(car as ICar);
-    const factoryVehicle = VehicleFactory.create(newCar, 'car');
-    return factoryVehicle;
+    const manufacturedVehicle = VehicleFactory.create(newCar, 'car');
+    return manufacturedVehicle;
   }
 
   public async findAll() {

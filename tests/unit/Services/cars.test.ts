@@ -54,7 +54,7 @@ describe('Testa a rota cars', function () {
         },
       ];
       const carOutput: Car[] = carInput.map((car: ICar) => new Car(car));
-      sinon.stub(Model, 'find').resolves(carOutput);
+      sinon.stub(Model, 'find').resolves(carInput);
 
       const service = new CarService();
       const result = await service.findAll();
@@ -74,7 +74,7 @@ describe('Testa a rota cars', function () {
         seatsQty: 5,
       };
       const carOutput: Car = new Car({ ...carInput });
-      sinon.stub(Model, 'findById').resolves(carOutput);
+      sinon.stub(Model, 'findOne').resolves(carInput);
 
       const service = new CarService();
       const result = await service.findById('637a3c57ded98fff8aa8bd43');
@@ -83,6 +83,7 @@ describe('Testa a rota cars', function () {
     });
 
     it('Deve retornar um erro caso o id informado seja inválido', async function () {
+      sinon.stub(Model, 'findOne').resolves();
       try {
         const service = new CarService();
         await service.findById('xxxxxx');
@@ -92,6 +93,7 @@ describe('Testa a rota cars', function () {
     });
 
     it('Deve retornar um erro caso o id informado não seja encontrado', async function () {
+      sinon.stub(Model, 'findOne').resolves();
       try {
         const service = new CarService();
         await service.findById('637a3c57ded98fff8aa8bd00');

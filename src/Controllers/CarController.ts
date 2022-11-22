@@ -87,5 +87,3 @@ export default class CarController {
     }
   }
 }
-
-// erros de console.log no server

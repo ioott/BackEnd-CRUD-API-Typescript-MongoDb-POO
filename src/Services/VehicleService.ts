@@ -1,20 +1,23 @@
 import Car from '../Domains/Car';
-import VehicleFactory from '../Domains/VehicleFactory';
 import ICar from '../Interfaces/ICar';
 import CarODM from '../Models/CarODM';
+import Motorcycle from '../Domains/Motorcycle';
+import IMotorcycle from '../Interfaces/IMotorcycle';
+import MotorcycleODM from '../Models/MotorcycleODM';
+import VehicleFactory from '../Domains/VehicleFactory';
 
-export default class CarService {
-  private createCarDomain(car: ICar | null): Car | null {
-    if (car) {
-      return new Car(car);
+export default class VehicleService {
+  private createVehicleDomain(vehicle: ICar | IMotorcycle | null): Car | Motorcycle | null {
+    if (vehicle) {
+      return new Vehicle(vehicle);
     }
     return null;
   }
 
   public async create(car: ICar) {
-    const typedVehicle = VehicleFactory.create(car);
+    const vehicle = VehicleFactory.create(car);
     const carODM = new CarODM();
-    const newCar = await carODM.create(typedVehicle);
+    const newCar = await carODM.create(vehicle);
     return this.createCarDomain(newCar);
   }
 

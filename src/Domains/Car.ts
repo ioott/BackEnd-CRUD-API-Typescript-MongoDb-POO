@@ -1,26 +1,24 @@
 import ICar from '../Interfaces/ICar';
 import IValid from '../Interfaces/IValid';
+import Vehicle from './Vehicle';
 
-export default class Car implements IValid {
-  protected id: string | undefined;
-  protected model: string;
-  protected year: number;
-  protected color: string;
-  protected status: boolean | undefined = false;
-  protected buyValue: number;
-  private doorsQty: number;
-  private seatsQty: number;
+export default class Car extends Vehicle implements IValid {
+  private _doorsQty: number;
+  private _seatsQty: number;
 
   constructor(car: ICar) {
+    super({ ...car });
     if (car._id && !this.isValid(car._id)) throw new Error('Invalid mongo id');
-    this.id = car._id;
-    this.model = car.model;
-    this.year = car.year;
-    this.color = car.color;
-    this.status = car.status;
-    this.buyValue = car.buyValue;
-    this.doorsQty = car.doorsQty;
-    this.seatsQty = car.seatsQty;
+
+    this._doorsQty = car.doorsQty;
+    this._seatsQty = car.seatsQty;
+  }
+
+  public get doorsQty(): number {
+    return this._doorsQty;
+  }
+  public get seatsQty(): number {
+    return this._doorsQty;
   }
 
   isValid(value: string): boolean {

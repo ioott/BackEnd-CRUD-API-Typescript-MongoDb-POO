@@ -34,7 +34,7 @@ describe('Testa a rota motorcycles', function () {
       const motorcycleInput: IMotorcycle[] = [
         {
           _id: '637a3c57ded98fff8aa8bd43',
-          model: 'Honda Cb 600f Hornet',
+          model: 'Honda',
           year: 2005,
           color: 'Yellow',
           status: true,

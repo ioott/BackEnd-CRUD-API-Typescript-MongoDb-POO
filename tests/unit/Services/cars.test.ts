@@ -33,7 +33,7 @@ describe('Testa a rota cars', function () {
     it('Deve listar todos os carros com sucesso', async function () {
       const carInput: ICar[] = [
         {
-          _id: '637a3c57ded98fff8aa8bd43',
+          id: '637a3c57ded98fff8aa8bd43',
           model: 'Carro1',
           year: 2002,
           color: 'Black',
@@ -43,7 +43,7 @@ describe('Testa a rota cars', function () {
           seatsQty: 5,
         },
         {
-          _id: '637a3c57ded98fff8aa8bd44',
+          id: '637a3c57ded98fff8aa8bd44',
           model: 'Carro2',
           year: 2002,
           color: 'Black',
@@ -64,7 +64,7 @@ describe('Testa a rota cars', function () {
 
     it('Deve listar o carro de um id específico com sucesso', async function () {
       const carInput: ICar = {
-        _id: '637a3c57ded98fff8aa8bd43',
+        id: '637a3c57ded98fff8aa8bd43',
         model: 'Carro1',
         year: 2002,
         color: 'Black',

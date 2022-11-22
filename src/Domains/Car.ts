@@ -9,7 +9,7 @@ export default class Car extends Vehicle implements IValid {
   constructor(car: ICar) {
     super(car);
 
-    if (car._id && !this.isValid(car._id)) throw new Error('Invalid mongo id');
+    if (car.id && !this.isValid(car.id)) throw new Error('Invalid mongo id');
 
     this.doorsQty = car.doorsQty;
     this.seatsQty = car.seatsQty;

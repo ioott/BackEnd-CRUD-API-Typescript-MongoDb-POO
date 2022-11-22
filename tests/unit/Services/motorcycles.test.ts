@@ -33,7 +33,7 @@ describe('Testa a rota motorcycles', function () {
     it('Deve listar todos as motos com sucesso', async function () {
       const motorcycleInput: IMotorcycle[] = [
         {
-          _id: '637a3c57ded98fff8aa8bd43',
+          id: '637a3c57ded98fff8aa8bd43',
           model: 'Honda',
           year: 2005,
           color: 'Yellow',
@@ -43,7 +43,7 @@ describe('Testa a rota motorcycles', function () {
           engineCapacity: 600,
         },
         {
-          _id: '637a3c57ded98fff8aa8bd44',
+          id: '637a3c57ded98fff8aa8bd44',
           model: 'Honda Cbr 1000rr',
           year: 2011,
           color: 'Orange',
@@ -65,7 +65,7 @@ describe('Testa a rota motorcycles', function () {
 
     it('Deve listar a moto de um id específico com sucesso', async function () {
       const motorcycleInput: IMotorcycle = {
-        _id: '637a3c57ded98fff8aa8bd43',
+        id: '637a3c57ded98fff8aa8bd43',
         model: 'Honda Cb 600f Hornet',
         year: 2005,
         color: 'Yellow',

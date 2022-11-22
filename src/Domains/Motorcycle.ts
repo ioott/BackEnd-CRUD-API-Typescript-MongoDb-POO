@@ -9,7 +9,7 @@ export default class Motorcycle extends Vehicle implements IValid {
   constructor(motorcycle: IMotorcycle) {
     super(motorcycle);
 
-    if (motorcycle._id && !this.isValid(motorcycle._id)) throw new Error('Invalid mongo id');
+    if (motorcycle.id && !this.isValid(motorcycle.id)) throw new Error('Invalid mongo id');
 
     this.category = motorcycle.category;
     this.engineCapacity = motorcycle.engineCapacity;

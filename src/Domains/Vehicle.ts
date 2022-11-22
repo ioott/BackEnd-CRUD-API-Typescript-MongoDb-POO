@@ -10,9 +10,9 @@ export default abstract class Vehicle implements IValid {
   protected buyValue: number;
 
   constructor(vehicle: IVehicle) {
-    if (vehicle._id && !this.isValid(vehicle._id)) throw new Error('Invalid mongo id');
+    if (vehicle.id && !this.isValid(vehicle.id)) throw new Error('Invalid mongo id');
 
-    this.id = vehicle._id;
+    this.id = vehicle.id;
     this.model = vehicle.model;
     this.year = vehicle.year;
     this.color = vehicle.color;

@@ -12,10 +12,10 @@ export default class CarService {
   }
 
   public async create(car: ICar) {
-    const typedVehicle = VehicleFactory.create(car);
     const carODM = new CarODM();
-    const newCar = await carODM.create(typedVehicle);
-    return this.createCarDomain(newCar);
+    const newCar = await carODM.create(car as ICar);
+    const factoryVehicle = VehicleFactory.create(newCar, 'car');
+    return factoryVehicle;
   }
 
   public async findAll() {

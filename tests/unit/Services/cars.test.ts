@@ -129,4 +129,39 @@ describe('Testa a rota cars', function () {
       sinon.restore();
     });
   });
+
+  describe('Testa a rota do tipo delete', function () {
+    it('Deve deletar o carro de um id específico com sucesso', async function () {
+      sinon.stub(Model, 'findOneAndDelete').resolves(true);
+
+      const service = new CarService();
+      const result = await service.delete('637a3c57ded98fff8aa8bd44');
+
+      expect(result).to.be.equal(undefined);
+    });
+
+    it('Deve retornar um erro caso o id informado seja inválido', async function () {
+      sinon.stub(Model, 'findOneAndDelete').resolves();
+      try {
+        const service = new CarService();
+        await service.delete('xxxxxx');
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Invalid mongo id');
+      }
+    });
+
+    it('Deve retornar um erro caso o id informado não seja encontrado', async function () {
+      sinon.stub(Model, 'findOneAndDelete').resolves();
+      try {
+        const service = new CarService();
+        await service.delete('637a3c57ded98fff8aa8bd00');
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Car not found');
+      }
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+  });
 });

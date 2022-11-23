@@ -108,7 +108,7 @@ describe('Testa a rota motorcycles', function () {
     });
   });
 
-  describe('Testa s rotas do tipo put', function () {
+  describe('Testa a rota do tipo put', function () {
     it('Deve atualizar a moto de um id específico com sucesso', async function () {
       const motorcycleInput: IMotorcycle = {
         model: 'Honda Cb 600f Hornet',
@@ -127,6 +127,41 @@ describe('Testa a rota motorcycles', function () {
 
       expect(result).to.be.deep.equal(motorcycleOutput);
 
+      sinon.restore();
+    });
+  });
+
+  describe('Testa a rota do tipo delete', function () {
+    it('Deve deletar a moto de um id específico com sucesso', async function () {
+      sinon.stub(Model, 'findOneAndDelete').resolves(true);
+
+      const service = new MotorcycleService();
+      const result = await service.delete('637a3c57ded98fff8aa8bd44');
+
+      expect(result).to.be.equal(true);
+    });
+
+    it('Deve retornar um erro caso o id informado seja inválido', async function () {
+      sinon.stub(Model, 'findOneAndDelete').resolves();
+      try {
+        const service = new MotorcycleService();
+        await service.delete('xxxxxx');
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Invalid mongo id');
+      }
+    });
+
+    it('Deve retornar um erro caso o id informado não seja encontrado', async function () {
+      sinon.stub(Model, 'findOneAndDelete').resolves();
+      try {
+        const service = new MotorcycleService();
+        await service.delete('637a3c57ded98fff8aa8bd00');
+      } catch (error) {
+        expect((error as Error).message).to.be.equal('Motorcycle not found');
+      }
+    });
+
+    afterEach(function () {
       sinon.restore();
     });
   });

@@ -3,6 +3,9 @@ import VehicleFactory from '../Domains/VehicleFactory';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import MotorcycleODM from '../Models/MotorcycleODM';
 
+const MOTORCYCLE_NOT_FOUND = 'Motorcycle not found';
+const INVALID_MONGO_ID = 'Invalid mongo id';
+
 export default class MotorcycleService {
   private createMotorcycleDomain(motorcycle: IMotorcycle | null): Motorcycle | null {
     if (motorcycle) {
@@ -27,11 +30,11 @@ export default class MotorcycleService {
   public async findById(id: string) {
     const regex = /^[a-f\d]{24}$/i;
     const isValid = regex.test(id);
-    if (!isValid) throw new Error('Invalid mongo id');
+    if (!isValid) throw new Error(INVALID_MONGO_ID);
 
     const motorcycleODM = new MotorcycleODM();
     const motorcycleById = await motorcycleODM.findById(id);
-    if (!motorcycleById) throw new Error('Motorcycle not found');
+    if (!motorcycleById) throw new Error(MOTORCYCLE_NOT_FOUND);
 
     return this.createMotorcycleDomain(motorcycleById);
   }
@@ -39,11 +42,11 @@ export default class MotorcycleService {
   public async updateById(id: string, motorcycle: IMotorcycle) {
     const regex = /^[a-f\d]{24}$/i;
     const isValid = regex.test(id);
-    if (!isValid) throw new Error('Invalid mongo id');
+    if (!isValid) throw new Error(INVALID_MONGO_ID);
 
     const motorcycleODM = new MotorcycleODM();
     const motorcycleById = await motorcycleODM.updateById(id, motorcycle);
-    if (!motorcycleById) throw new Error('Motorcycle not found');
+    if (!motorcycleById) throw new Error(MOTORCYCLE_NOT_FOUND);
 
     return this.createMotorcycleDomain(motorcycleById);
   }
@@ -51,11 +54,11 @@ export default class MotorcycleService {
   public async delete(id: string) {
     const regex = /^[a-f\d]{24}$/i;
     const isValid = regex.test(id);
-    if (!isValid) throw new Error('Invalid mongo id');
+    if (!isValid) throw new Error(INVALID_MONGO_ID);
 
     const motorcycleODM = new MotorcycleODM();
     const motorcycleById = await motorcycleODM.delete(id);
-    if (!motorcycleById) throw new Error('Motorcycle not found');
+    if (!motorcycleById) throw new Error(MOTORCYCLE_NOT_FOUND);
     return true;
   }
 }

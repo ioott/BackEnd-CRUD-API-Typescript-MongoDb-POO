@@ -3,6 +3,9 @@ import VehicleFactory from '../Domains/VehicleFactory';
 import ICar from '../Interfaces/ICar';
 import CarODM from '../Models/CarODM';
 
+const CAR_NOT_FOUND = 'Car not found';
+const INVALID_MONGO_ID = 'Invalid mongo id';
+
 export default class CarService {
   private createCarDomain(car: ICar | null): Car | null {
     if (car) {
@@ -27,11 +30,11 @@ export default class CarService {
   public async findById(id: string) {
     const regex = /^[a-f\d]{24}$/i;
     const isValid = regex.test(id);
-    if (!isValid) throw new Error('Invalid mongo id');
+    if (!isValid) throw new Error(INVALID_MONGO_ID);
 
     const carODM = new CarODM();
     const carById = await carODM.findById(id);
-    if (!carById) throw new Error('Car not found');
+    if (!carById) throw new Error(CAR_NOT_FOUND);
 
     return this.createCarDomain(carById);
   }
@@ -39,11 +42,11 @@ export default class CarService {
   public async updateById(id: string, car: ICar) {
     const regex = /^[a-f\d]{24}$/i;
     const isValid = regex.test(id);
-    if (!isValid) throw new Error('Invalid mongo id');
+    if (!isValid) throw new Error(INVALID_MONGO_ID);
 
     const carODM = new CarODM();
     const carById = await carODM.updateById(id, car);
-    if (!carById) throw new Error('Car not found');
+    if (!carById) throw new Error(CAR_NOT_FOUND);
 
     return this.createCarDomain(carById);
   }
@@ -51,10 +54,10 @@ export default class CarService {
   public async delete(id: string) {
     const regex = /^[a-f\d]{24}$/i;
     const isValid = regex.test(id);
-    if (!isValid) throw new Error('Invalid mongo id');
+    if (!isValid) throw new Error(INVALID_MONGO_ID);
 
     const carODM = new CarODM();
     const carById = await carODM.delete(id);
-    if (!carById) throw new Error('Car not found');
+    if (!carById) throw new Error(CAR_NOT_FOUND);
   }
 }

@@ -86,4 +86,20 @@ export default class MotorcycleController {
       this.next();
     }
   }
+
+  public async delete() {
+    try {
+      const { id } = this.req.params;
+      await this.service.delete(id);
+      return this.res.status(204).end();
+    } catch (error) {
+      if ((error as Error).message === MOTORCYCLE_NOT_FOUND) {
+        this.res.status(404).json({ message: MOTORCYCLE_NOT_FOUND });
+      }
+      if ((error as Error).message === INVALID_MONGO_ID) {
+        this.res.status(422).json({ message: INVALID_MONGO_ID });
+      }
+      this.next();
+    }
+  }
 }

@@ -47,4 +47,15 @@ export default class MotorcycleService {
 
     return this.createMotorcycleDomain(motorcycleById);
   }
+
+  public async delete(id: string) {
+    const regex = /^[a-f\d]{24}$/i;
+    const isValid = regex.test(id);
+    if (!isValid) throw new Error('Invalid mongo id');
+
+    const motorcycleODM = new MotorcycleODM();
+    const motorcycleById = await motorcycleODM.delete(id);
+    if (!motorcycleById) throw new Error('Motorcycle not found');
+    return true;
+  }
 }

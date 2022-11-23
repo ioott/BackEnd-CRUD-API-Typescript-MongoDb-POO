@@ -107,7 +107,7 @@ describe('Testa a rota cars', function () {
     });
   });
 
-  describe('Testa s rots do tipo put', function () {
+  describe('Testa a rota do tipo put', function () {
     it('Deve atualizar o carro de um id específico com sucesso', async function () {
       const carInput: ICar = {
         model: 'Carro1',

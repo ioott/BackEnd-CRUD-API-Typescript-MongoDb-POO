@@ -47,4 +47,14 @@ export default class CarService {
 
     return this.createCarDomain(carById);
   }
+
+  public async delete(id: string) {
+    const regex = /^[a-f\d]{24}$/i;
+    const isValid = regex.test(id);
+    if (!isValid) throw new Error('Invalid mongo id');
+
+    const carODM = new CarODM();
+    const carById = await carODM.delete(id);
+    if (!carById) throw new Error('Car not found');
+  }
 }
